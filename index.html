@@ -9,12 +9,16 @@
 </head>
 <body>
   <div id="auth" class="container fade">
-    <h1>RepTrack Login</h1>
-    <input id="email" type="email" placeholder="Email" />
-    <input id="password" type="password" placeholder="Password" />
-    <button onclick="handleSignUp()">Sign Up</button>
-    <button onclick="handleLogin()">Log In</button>
-  </div>
+  <h1>RepTrack Login</h1>
+  <form onsubmit="return false;">
+    <input id="email" type="email" placeholder="Email" required />
+    <input id="password" type="password" placeholder="Password" required />
+    <div class="auth-buttons">
+      <button onclick="handleSignUp()">Sign Up</button>
+      <button onclick="handleLogin()">Log In</button>
+    </div>
+  </form>
+</div>
 
   <div id="setup" class="container hidden fade">
     <h2>Set Up Your Profile</h2>
