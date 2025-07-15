@@ -2,59 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>RepTrack</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div id="auth" class="fade">
+  <div id="auth" class="container fade">
     <h1>RepTrack Login</h1>
     <input id="email" type="email" placeholder="Email" /><br />
     <input id="password" type="password" placeholder="Password" /><br />
-    <button onclick="signUp()">Sign Up</button>
-    <button onclick="login()">Log In</button>
+    <button onclick="handleSignUp()">Sign Up</button>
+    <button onclick="handleLogin()">Log In</button>
   </div>
 
-  <div id="setup" class="hidden fade">
-    <h2>Let’s Get Your Info</h2>
-    <label>Weight (lbs): <input id="weight" type="number" /></label><br>
-    <label>Height (in): <input id="height" type="number" /></label><br>
+  <div id="setup" class="container hidden fade">
+    <h2>Set Up Your Profile</h2>
+    <label>Weight (lbs): <input id="weight" type="number" /></label>
+    <label>Height (in): <input id="height" type="number" /></label>
     <label>Goal:
       <select id="goal">
         <option value="lose fat">Lose Fat</option>
         <option value="build muscle">Build Muscle</option>
         <option value="get stronger">Get Stronger</option>
       </select>
-    </label><br>
-    <h3>Available Equipment</h3>
-    <div class="equipment-selector">
-      <label><input type="checkbox" value="dumbbells">Dumbbells</label>
-      <label><input type="checkbox" value="barbell">Barbell</label>
-      <label><input type="checkbox" value="smith machine">Smith Machine</label>
-      <label><input type="checkbox" value="leg press">Leg Press</label>
-      <label><input type="checkbox" value="lat pulldown">Lat Pulldown</label>
-      <label><input type="checkbox" value="pull-up bar">Pull-up Bar</label>
-      <label><input type="checkbox" value="cable machine">Cable Machine</label>
-      <label><input type="checkbox" value="treadmill">Treadmill</label>
-    </div>
-    <button onclick="submitUserInfo()">Save and Generate Plan</button>
+    </label>
+    <h3>Equipment</h3>
+    <div class="equipment-selector" id="equipmentSelector"></div>
+    <button onclick="handleSetupComplete()">Save & Continue</button>
   </div>
 
-  <div id="main" class="hidden fade">
-    <h2>Welcome!</h2>
-    <button onclick="logout()">Logout</button>
-    <div id="schedule"></div>
-    <h3>Today's Workout</h3>
-    <select id="difficulty">
-      <option value="easy">Easy</option>
-      <option value="medium">Medium</option>
-      <option value="hard">Hard</option>
-    </select>
-    <button onclick="generateWorkout()">Generate Workout</button>
-    <div id="workout"></div>
+  <div id="main" class="container hidden fade">
+    <h2>Welcome to RepTrack!</h2>
+    <button class="logout" onclick="handleLogout()">Logout</button>
+    <button onclick="renderDashboard()">Dashboard</button>
+    <button onclick="renderGroups()">Groups & Challenges</button>
+    <div id="dynamic-content"></div>
   </div>
 
-  <script src="script.js"></script>
+  <script src="auth.js"></script>
+  <script src="data.js"></script>
+  <script src="groups.js"></script>
+  <script src="ui.js"></script>
+  <script src="workout.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
