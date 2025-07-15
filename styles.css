@@ -52,7 +52,6 @@ body.light input, body.light select {
   border-color: #ccc;
 }
 
-/* Add fade in animations */
 .fade {
   animation: fadeIn 0.5s ease forwards;
   opacity: 0;
@@ -61,8 +60,6 @@ body.light input, body.light select {
 @keyframes fadeIn {
   to { opacity: 1; }
 }
-
-/* Equipment sections and layout */
 
 .equipment-section {
   margin: 20px 0;
@@ -104,4 +101,22 @@ body.light .equipment-list label {
   padding: 10px;
 }
 
-/* Other UI style snippets for achievements, mood, groups etc will be added in js or here */
+.workout-box {
+  background: #1c1c1c;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(255, 44, 44, 0.3);
+}
+
+body.light .workout-box {
+  background: #eee;
+  color: #222;
+  box-shadow: 0 0 8px rgba(255, 44, 44, 0.4);
+}
+
+img.progress-photo {
+  max-width: 100px;
+  margin: 5px;
+  border-radius: 6px;
+}
