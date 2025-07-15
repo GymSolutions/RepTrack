@@ -11,17 +11,14 @@ const ACHIEVEMENTS = [
   { id: 'first_workout', title: 'First Workout', desc: 'Complete your first workout!', reward: 'Unlock Neon Theme' },
   { id: 'week_streak', title: 'One Week Streak', desc: 'Workout 7 days in a row!', reward: 'Unlock Cyberpunk Theme' },
   { id: 'photo_log', title: 'Photo Pro', desc: 'Upload 10 progress photos', reward: 'Unlock Avatar Pack' },
-  // add more as needed
 ];
 
 const THEMES = [
   { id: 'default', name: 'Default Dark', colors: { bg: '#0d0d0d', fg: '#f5f5f5', accent: '#ff2c2c' }},
   { id: 'neon', name: 'Neon Glow', colors: { bg: '#020024', fg: '#39ff14', accent: '#ff1493' }},
   { id: 'cyberpunk', name: 'Cyberpunk', colors: { bg: '#1f1b24', fg: '#ff00ff', accent: '#00ffff' }},
-  // add more themes unlocked by achievements
 ];
 
-// Basic workout templates by difficulty & equipment (simplified)
 const WORKOUTS = {
   easy: ['Jumping Jacks', 'Bodyweight Squats', 'Push-ups', 'Plank (30s)'],
   medium: ['Dumbbell Curls (3x12)', 'Leg Press (3x10)', 'Bench Press (3x8)', 'Cable Rows (3x10)'],
