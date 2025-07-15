@@ -15,16 +15,16 @@ function initApp() {
 }
 
 function handleSignUp() {
-  const email = prompt('Email:');
-  const pw = prompt('Password:');
+  const email = document.getElementById('email').value;
+  const pw = document.getElementById('password').value;
   const res = signUp(email, pw);
   if (res.success) initApp();
   else alert(res.message);
 }
 
 function handleLogin() {
-  const email = prompt('Email:');
-  const pw = prompt('Password:');
+  const email = document.getElementById('email').value;
+  const pw = document.getElementById('password').value;
   const res = login(email, pw);
   if (res.success) initApp();
   else alert(res.message);
