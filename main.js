@@ -1,87 +1,103 @@
 // main.js
 
-let currentTheme = 'default';
+// USERS & AUTH (simplified)
 
-function initApp() {
-  if (!currentUserEmail) {
-    renderLogin();
-  } else {
-    const user = getCurrentUser();
-    if (!user.weight || !user.height || !user.goal || !user.equipment || user.equipment.length === 0) {
-      renderSetup();
-    } else {
+const usersKey = 'reptrackUsers';
+
+function signUp() {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  if (!email || !password) {
+    alert("Please enter email and password.");
+    return;
+  }
+
+  const users = JSON.parse(localStorage.getItem(usersKey) || '{}');
+  if (users[email]) {
+    alert("User already exists!");
+    return;
+  }
+  users[email] = { password };
+  localStorage.setItem(usersKey, JSON.stringify(users));
+  alert("Signed up successfully!");
+  login();
+}
+
+function login() {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+
+  const users = JSON.parse(localStorage.getItem(usersKey) || '{}');
+  if (users[email] && users[email].password === password) {
+    localStorage.setItem('currentUser', email);
+    currentUser = email;
+
+    document.getElementById("auth").classList.add("hidden");
+
+    // Check if user has setup info
+    const savedWeight = localStorage.getItem(`${email}-weight`);
+    const savedGoal = localStorage.getItem(`${email}-goal`);
+    const savedHeight = localStorage.getItem(`${email}-height`);
+    if (savedWeight && savedGoal && savedHeight) {
+      document.getElementById("main").classList.remove("hidden");
       renderDashboard();
-    }
-  }
-}
-
-function handleSignUp() {
-  const email = document.getElementById('email').value.trim();
-  const password = document.getElementById('password').value.trim();
-  const msg = signUp(email, password);
-  alert(msg);
-  if (msg.startsWith('Sign up')) {
-    renderSetup();
-  }
-}
-
-function handleLogin() {
-  const email = document.getElementById('email').value.trim();
-  const password = document.getElementById('password').value.trim();
-  const msg = login(email, password);
-  if (msg === 'Login successful') {
-    const user = getCurrentUser();
-    if (!user.weight || !user.height || !user.goal || !user.equipment || user.equipment.length === 0) {
-      renderSetup();
+      generateAIPlan(savedWeight, savedGoal, savedHeight);
     } else {
-      renderDashboard();
+      document.getElementById("setup").classList.remove("hidden");
     }
   } else {
-    alert(msg);
+    alert("Invalid login");
   }
 }
 
-function handleLogout() {
-  logout();
-  renderLogin();
+function logout() {
+  localStorage.removeItem('currentUser');
+  currentUser = null;
+  document.getElementById("auth").classList.remove("hidden");
+  document.getElementById("setup").classList.add("hidden");
+  document.getElementById("main").classList.add("hidden");
+  document.getElementById('dynamic-content').innerHTML = '';
 }
 
-function handleSetupComplete() {
-  const weight = parseInt(document.getElementById('weight').value);
-  const height = parseInt(document.getElementById('height').value);
-  const goal = document.getElementById('goal').value;
-  const selectedEquip = [...document.querySelectorAll('.equipment-list input:checked')].map(e => e.value);
+function submitUserInfo() {
+  const weight = document.getElementById("weight").value;
+  const height = document.getElementById("height").value;
+  const goal = document.getElementById("goal").value;
 
-  if (!weight || !height) return alert('Please enter valid weight and height.');
+  if (!weight || !height) {
+    alert("Please enter weight and height.");
+    return;
+  }
 
-  updateCurrentUser({ weight, height, goal, equipment: selectedEquip });
-  alert('Profile saved!');
+  const selectedEquipment = [...document.querySelectorAll('.equipment-selector input:checked')].map(el => el.value);
+
+  localStorage.setItem(`${currentUser}-weight`, weight);
+  localStorage.setItem(`${currentUser}-height`, height);
+  localStorage.setItem(`${currentUser}-goal`, goal);
+  localStorage.setItem(`${currentUser}-equipment`, JSON.stringify(selectedEquipment));
+
+  document.getElementById("setup").classList.add("hidden");
+  document.getElementById("main").classList.remove("hidden");
   renderDashboard();
+  generateAIPlan(weight, goal, height);
 }
 
-function uploadPhoto(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    let user = getCurrentUser();
-    if (!user.progressPhotos) user.progressPhotos = [];
-    user.progressPhotos.push(e.target.result);
-    updateCurrentUser({ progressPhotos: user.progressPhotos });
-    renderProfile();
-  };
-  reader.readAsDataURL(file);
-}
+// GROUP UI handlers
 
-function toggleTheme() {
-  if (currentTheme === 'default') {
-    document.body.classList.add('light');
-    currentTheme = 'light';
-  } else {
-    document.body.classList.remove('light');
-    currentTheme = 'default';
+function createGroupUI() {
+  const name = document.getElementById('newGroupName').value.trim();
+  const desc = document.getElementById('newGroupDesc').value.trim();
+  if (!name) {
+    alert('Please enter a group name.');
+    return;
   }
+  const msg = createGroup(name, desc);
+  alert(msg);
+  renderGroups();
 }
 
-// Init app on load
-window.onload = initApp;
+function joinGroupUI(name) {
+  const msg = joinGroup(name);
+  alert(msg);
+  renderGroups();
+}
