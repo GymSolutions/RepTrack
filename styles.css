@@ -1,0 +1,107 @@
+:root {
+  --bg-dark: #0d0d0d;
+  --fg-dark: #f5f5f5;
+  --accent: #ff2c2c;
+  --bg-light: #fefefe;
+  --fg-light: #222222;
+  --font-main: 'Orbitron', sans-serif;
+}
+
+body {
+  font-family: var(--font-main);
+  margin: 0; padding: 0;
+  background-color: var(--bg-dark);
+  color: var(--fg-dark);
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+body.light {
+  background-color: var(--bg-light);
+  color: var(--fg-light);
+}
+
+button {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 10px 5px;
+  transition: transform 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+input, select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #444;
+  margin: 5px 0;
+  background: #222;
+  color: white;
+  font-size: 1rem;
+}
+
+body.light input, body.light select {
+  background: #eee;
+  color: #222;
+  border-color: #ccc;
+}
+
+/* Add fade in animations */
+.fade {
+  animation: fadeIn 0.5s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* Equipment sections and layout */
+
+.equipment-section {
+  margin: 20px 0;
+}
+
+.equipment-section h3 {
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+.equipment-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.equipment-list label {
+  background: #222;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+  color: white;
+}
+
+body.light .equipment-list label {
+  background: #ddd;
+  color: #222;
+}
+
+.equipment-list input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.container {
+  max-width: 480px;
+  margin: 20px auto;
+  padding: 10px;
+}
+
+/* Other UI style snippets for achievements, mood, groups etc will be added in js or here */
