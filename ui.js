@@ -99,7 +99,7 @@ function renderProfile() {
     <p><strong>Goal:</strong> ${user.goal || 'Not set'}</p>
     <h4>Progress Photos</h4>
     <div id="photo-gallery">${(user.progressPhotos || []).map((p, i) =>
-      `<img src="${p}" alt="Progress ${i+1}" style="max-width:100px; margin:5px; border-radius:6px;">`).join('')}</div>
+      `<img src="${p}" alt="Progress ${i+1}" class="progress-photo">`).join('')}</div>
     <input type="file" id="photo-upload" accept="image/*" onchange="uploadPhoto(event)" />
   `;
 }
