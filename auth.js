@@ -5,9 +5,21 @@ let currentUserEmail = null;
 function signUp(email, password) {
   if (!email || !password) return 'Please fill all fields.';
   if (usersDB[email]) return 'User already exists.';
-  usersDB[email] = { password, achievements: [], progressPhotos: [], workouts: [], moodLog: [], groups: [] };
+  usersDB[email] = { 
+    password, 
+    achievements: [], 
+    progressPhotos: [], 
+    workouts: [], 
+    moodLog: [], 
+    groups: [],
+    weight: null,
+    height: null,
+    goal: null,
+    equipment: []
+  };
   saveDB();
-  return 'Sign up successful! Please log in.';
+  currentUserEmail = email;
+  return 'Sign up successful! Please complete your profile.';
 }
 
 function login(email, password) {
