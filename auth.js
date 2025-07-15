@@ -1,49 +1,40 @@
 // auth.js
-const usersDB = JSON.parse(localStorage.getItem('usersDB') || '{}');
-let currentUserEmail = null;
+
+const usersKey = 'reptrackUsers';
+const currentUserKey = 'currentUser';
+
+function getUsers() {
+  return JSON.parse(localStorage.getItem(usersKey) || '{}');
+}
+
+function saveUsers(users) {
+  localStorage.setItem(usersKey, JSON.stringify(users));
+}
 
 function signUp(email, password) {
-  if (!email || !password) return 'Please fill all fields.';
-  if (usersDB[email]) return 'User already exists.';
-  usersDB[email] = { 
-    password, 
-    achievements: [], 
-    progressPhotos: [], 
-    workouts: [], 
-    moodLog: [], 
-    groups: [],
-    weight: null,
-    height: null,
-    goal: null,
-    equipment: []
-  };
-  saveDB();
-  currentUserEmail = email;
-  return 'Sign up successful! Please complete your profile.';
+  const users = getUsers();
+  if (users[email]) {
+    return { success: false, message: 'User already exists!' };
+  }
+  users[email] = { password };
+  saveUsers(users);
+  localStorage.setItem(currentUserKey, email);
+  return { success: true };
 }
 
 function login(email, password) {
-  if (!usersDB[email]) return 'User not found.';
-  if (usersDB[email].password !== password) return 'Incorrect password.';
-  currentUserEmail = email;
-  return 'Login successful';
+  const users = getUsers();
+  if (users[email] && users[email].password === password) {
+    localStorage.setItem(currentUserKey, email);
+    return { success: true };
+  }
+  return { success: false, message: 'Invalid email or password' };
 }
 
 function logout() {
-  currentUserEmail = null;
-}
-
-function saveDB() {
-  localStorage.setItem('usersDB', JSON.stringify(usersDB));
+  localStorage.removeItem(currentUserKey);
 }
 
 function getCurrentUser() {
-  if (!currentUserEmail) return null;
-  return usersDB[currentUserEmail];
-}
-
-function updateCurrentUser(data) {
-  if (!currentUserEmail) return;
-  usersDB[currentUserEmail] = {...usersDB[currentUserEmail], ...data};
-  saveDB();
+  return localStorage.getItem(currentUserKey);
 }
