@@ -6,17 +6,17 @@ function generateWorkout() {
   if (!user) return alert('No user logged in!');
   const selectedEquip = user.equipment || [];
 
-  // Simplified workout generation based on difficulty & equipment
   let baseWorkouts = WORKOUTS[diff] || [];
+
   if (selectedEquip.length) {
-    // Filter workouts by equipment if possible (simple match)
-    baseWorkouts = baseWorkouts.filter(w => {
+    // Filter workouts by equipment keywords if possible (simple match)
+    const filtered = baseWorkouts.filter(w => {
       for (let eq of selectedEquip) {
         if (w.toLowerCase().includes(eq.toLowerCase())) return true;
       }
       return false;
     });
-    if (baseWorkouts.length === 0) baseWorkouts = WORKOUTS[diff]; // fallback
+    if (filtered.length) baseWorkouts = filtered;
   }
 
   const workoutDiv = document.getElementById('workout-result');
@@ -24,7 +24,6 @@ function generateWorkout() {
     ? baseWorkouts.map(w => `<div class="workout-box">${w}</div>`).join('')
     : '<p>No suitable workouts found for your equipment.</p>';
 
-  // Mark achievement for first workout done
   addAchievement('first_workout');
 }
 
@@ -39,7 +38,6 @@ function addAchievement(id) {
   }
 }
 
-// Simple AI Coach stub (returns random tip)
 function aiCoachTip() {
   const tips = [
     "Remember to warm up before every workout!",
