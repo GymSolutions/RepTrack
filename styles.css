@@ -90,3 +90,40 @@ button.logout:hover { background: #666; }
   font-weight: 600;
   box-shadow: 0 0 8px rgba(255,44,44,0.2);
 }
+.streak-popup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.streak-box {
+  background: #1e1e1e;
+  color: white;
+  border: 3px solid gold;
+  padding: 30px;
+  text-align: center;
+  animation: fadeInUp 0.5s ease-out;
+  border-radius: 15px;
+  box-shadow: 0 0 20px gold;
+}
+
+.streak-box button {
+  margin-top: 15px;
+  background: gold;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  color: black;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
