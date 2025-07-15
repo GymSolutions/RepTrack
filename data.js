@@ -16,3 +16,21 @@ const WORKOUT_TEMPLATES = {
   medium: ['Dumbbell Curls (3x12)', 'Leg Press (3x10)', 'Bench Press (3x8)', 'Cable Rows (3x10)'],
   hard: ['Barbell Squats (5x5)', 'Deadlift (5x5)', 'Pull-ups (4x8)', 'Smith Machine Lunges (3x10)']
 };
+function updateStreak() {
+  const users = getUsers();
+  const user = users[getCurrentUser()];
+  const today = new Date().toISOString().split('T')[0];
+  const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+
+  if (user.lastWorkout === today) return; // Already logged today
+
+  if (user.lastWorkout === yesterday) {
+    user.streak = (user.streak || 0) + 1;
+  } else {
+    user.streak = 1;
+  }
+
+  user.lastWorkout = today;
+  saveUsers(users);
+}
+
