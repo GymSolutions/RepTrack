@@ -67,12 +67,21 @@ function handleSetupComplete() {
 
 function buildEquipmentList() {
   const container = document.getElementById('equipmentSelector');
-  container.innerHTML = Object.entries(EQUIPMENT).map(([section, items]) => {
-    const checkboxes = items.map(item => `
-      <label><input type="checkbox" value="${item}" /> ${item}</label>
+  container.innerHTML = `<button onclick="selectAllEquipment()">Select All</button><br/><br/>`;
+
+  container.innerHTML += Object.entries(EQUIPMENT).map(([section, items]) => {
+    const checkboxes = items.map(e => `
+      <label class="equipment-item">
+        <input type="checkbox" value="${e.name}" />
+        <span class="icon">${e.icon}</span> ${e.name}
+      </label>
     `).join('');
     return `<div class="equipment-section"><h4>${section}</h4>${checkboxes}</div>`;
   }).join('');
+}
+
+function selectAllEquipment() {
+  document.querySelectorAll('#equipmentSelector input[type="checkbox"]').forEach(cb => cb.checked = true);
 }
 
 function _show(id) {
