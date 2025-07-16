@@ -4,7 +4,7 @@ function initApp() {
 
   const user = getUsers()[cur];
 
-  if (!user.weight || !user.height || !user.goal || !user.equipment) {
+  if (!user.weight || !user.height || !user.goal || !user.equipment || !user.age) {
     buildEquipmentList();
     return _show('setup');
   }
@@ -40,18 +40,20 @@ function handleSetupComplete() {
   const cur = getCurrentUser();
   const users = getUsers();
 
+  const age = +document.getElementById('age').value;
   const weight = +document.getElementById('weight').value;
   const height = +document.getElementById('height').value;
   const goal = document.getElementById('goal').value;
   const equipment = Array.from(document.querySelectorAll('#equipmentSelector input:checked')).map(el => el.value);
 
-  if (!weight || !height || !goal || equipment.length === 0) {
+  if (!age || !weight || !height || !goal || equipment.length === 0) {
     alert("Please fill everything out.");
     return;
   }
 
   users[cur] = {
     ...users[cur],
+    age,
     weight,
     height,
     goal,
