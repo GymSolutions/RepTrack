@@ -127,3 +127,21 @@ button.logout:hover { background: #666; }
   from { opacity: 0; transform: translateY(40px); }
   to { opacity: 1; transform: translateY(0); }
 }
+.equipment-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.equipment-item .icon {
+  display: inline-block;
+  width: 24px;
+  margin-right: 8px;
+  font-size: 20px;
+}
+
+button {
+  cursor: pointer;
+  padding: 6px 12px;
+  margin-bottom: 10px;
+}
