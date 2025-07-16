@@ -1,52 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF‑8" />
-  <meta name="viewport" content="width=device‑width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>RepTrack</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div id="auth" class="container fade">
-  <h1>RepTrack Login</h1>
-  <form onsubmit="return false;">
-    <input id="email" type="email" placeholder="Email" required />
-    <input id="password" type="password" placeholder="Password" required />
-    <div class="auth-buttons">
-      <button onclick="handleSignUp()">Sign Up</button>
-      <button onclick="handleLogin()">Log In</button>
-    </div>
-  </form>
-</div>
+  <!-- AUTH SECTION -->
+  <div id="auth" class="container">
+    <h2>Welcome to RepTrack</h2>
+    <input id="email" type="email" placeholder="Email" />
+    <input id="password" type="password" placeholder="Password" />
+    <button onclick="handleLogin()">Log In</button>
+    <button onclick="handleSignUp()">Sign Up</button>
+  </div>
 
-  <div id="setup" class="container hidden fade">
-    <h2>Set Up Your Profile</h2>
-    <input id="weight" type="number" placeholder="Weight (lbs)" />
-    <input id="height" type="number" placeholder="Height (inches)" />
+  <!-- SETUP SECTION -->
+  <div id="setup" class="container hidden">
+    <h2>Tell Us About You</h2>
+
+    <label for="age">Age</label>
+    <input id="age" type="number" placeholder="Your Age" required />
+
+    <label for="weight">Weight (lbs)</label>
+    <input id="weight" type="number" placeholder="Your Weight" required />
+
+    <label for="height">Height (inches)</label>
+    <input id="height" type="number" placeholder="Your Height" required />
+
+    <label for="goal">Goal</label>
     <select id="goal">
       <option value="lose fat">Lose Fat</option>
       <option value="build muscle">Build Muscle</option>
       <option value="get stronger">Get Stronger</option>
+      <option value="stay active">Stay Active</option>
     </select>
+
     <h3>Available Equipment</h3>
-    <div id="equipmentSelector" class="equipment-selector"></div>
-    <button onclick="handleSetupComplete()">Save & Continue</button>
+    <div id="equipmentSelector"></div>
+
+    <button onclick="handleSetupComplete()">Finish Setup</button>
   </div>
 
-  <div id="main" class="container hidden fade">
-    <h2>Welcome, <span id="userName"></span>!</h2>
-    <button class="logout" onclick="handleLogout()">Logout</button>
-    <button onclick="renderDashboard()">Dashboard</button>
-    <button onclick="renderGroups()">Groups & Challenges</button>
-    <div id="dynamic-content"></div>
+  <!-- MAIN DASHBOARD -->
+  <div id="main" class="container hidden">
+    <h2>RepTrack Dashboard</h2>
+    <button onclick="handleLogout()">Log Out</button>
+
+    <div class="difficulty-selector">
+      <label for="difficulty">Workout Difficulty:</label>
+      <select id="difficulty">
+        <option value="easy">Easy</option>
+        <option value="medium" selected>Medium</option>
+        <option value="hard">Hard</option>
+      </select>
+    </div>
+
+    <button onclick="generateWorkout()">Generate Workout</button>
+    <div id="workout" class="workout-box"></div>
   </div>
 
+  <!-- SCRIPTS -->
   <script src="auth.js"></script>
   <script src="data.js"></script>
   <script src="groups.js"></script>
   <script src="ui.js"></script>
   <script src="workout.js"></script>
+  <script src="ai.js"></script>
   <script src="main.js"></script>
 </body>
 </html>
